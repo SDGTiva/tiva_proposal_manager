@@ -1,0 +1,18 @@
+#! /bin/sh
+
+identify_proposals()
+{
+	for filename in `ls /usr/share/tiva/proposals`
+	do
+		[ -f /usr/share/tiva/proposals/$filename ] || continue
+		[ `stat -c %u /usr/share/tiva/proposals/$filename` -ne 0 ] || continue
+		prepare_proposal $filename
+	done
+}
+
+prepare_proposal()
+{
+	chown root.root /usr/share/tiva/proposals/$1
+}
+
+identify_proposals
