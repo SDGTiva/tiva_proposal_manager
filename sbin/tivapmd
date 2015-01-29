@@ -2,17 +2,18 @@
 
 identify_proposals()
 {
-	for filename in `ls /usr/share/tiva/proposals`
+	for filename in `ls /usr/share/tiva/proposals/news`
 	do
-		[ -f /usr/share/tiva/proposals/$filename ] || continue
-		[ `stat -c %u /usr/share/tiva/proposals/$filename` -ne 0 ] || continue
+		[ -f /usr/share/tiva/proposals/news/$filename ] || continue
+		[ `stat -c %u /usr/share/tiva/proposals/news/$filename` -ne 0 ] || continue
 		prepare_proposal $filename
 	done
 }
 
 prepare_proposal()
 {
-	chown root.root /usr/share/tiva/proposals/$1
+	chown root.root /usr/share/tiva/proposals/news/$1
+	mv /usr/share/tiva/proposals/news/$1 /usr/share/tiva/proposals/$1
 }
 
 identify_proposals

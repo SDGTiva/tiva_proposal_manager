@@ -11,36 +11,38 @@ privilégios de administrador.
 
 3) EXECUÇÃO
 
-3.1) Qualquer arquivo colocado no diretório "/usr/share/tiva/proposals" é
+3.1) Qualquer arquivo colocado no diretório "/usr/share/tiva/proposals/news" é
 tratado como uma proposta de execução com privilégios de administrador.
 
 3.1.1) Assim que é identificado, o arquivo passa a pertencer ao root.
 
-3.1.2) Todas as linhas que iniciam com os caracteres "#*" passam a iniciar com
+3.1.2) O arquivo é movido para o diretório "/usr/share/tiva/proposals".
+
+3.1.3) Todas as linhas que iniciam com os caracteres "#*" passam a iniciar com
 os caracteres "#X*".
 
-3.1.3) O nome do arquivo é substituído por uma série de caracteres escolhidos
+3.1.4) O nome do arquivo é substituído por uma série de caracteres escolhidos
 pelo Tiva Proposal Manager.
 
-3.1.4) São inseridas no início do arquivo as seguintes linhas:
+3.1.5) São inseridas no início do arquivo as seguintes linhas:
 
-3.1.4.1) "#* Title: " e o título da proposta.
+3.1.5.1) "#* Title: " e o título da proposta.
 
-3.1.4.1.1) O título da proposta é o antigo nome do arquivo. Todos os
+3.1.5.1.1) O título da proposta é o antigo nome do arquivo. Todos os
 caracteres "_" são substituídos pelo caractere " " e a primeira letra passa a
 ser maiúscula.
 
-3.1.4.2) "#* Author: " e o nome do autor da proposta.
+3.1.5.2) "#* Author: " e o nome do autor da proposta.
 
-3.1.4.2.1) O autor da proposta é o antigo dono do arquvo. É exibido seu nome
+3.1.5.2.1) O autor da proposta é o antigo dono do arquvo. É exibido seu nome
 completo.
 
-3.1.4.3) "#* Creation date: " e a data de criação da proposta.
+3.1.5.3) "#* Creation date: " e a data de criação da proposta.
 
-3.1.4.3.1) A data de criação da proposta é a data e hora que a proposta foi
+3.1.5.3.1) A data de criação da proposta é a data e hora que a proposta foi
 identificada pelo Tiva Proposal Manager.
 
-3.1.4.4) "#* Approved by: ".
+3.1.5.4) "#* Approved by: ".
 
 3.2) Qualquer usuário no grupo "tiva_manager" pode avaliar e aprovar uma
 proposta.
