@@ -15,6 +15,7 @@ prepare_proposal()
 	chown root.root /usr/share/tiva/proposals/news/$1
 	mv /usr/share/tiva/proposals/news/$1 /usr/share/tiva/proposals/$1
 	sed -i "s/^#\*/#X\*/g" /usr/share/tiva/proposals/$1
+	mv /usr/share/tiva/proposals/$1 /usr/share/tiva/proposals/`cat /dev/urandom | tr -dc a-zA-Z0-9 | head -c 10`
 }
 
 identify_proposals
