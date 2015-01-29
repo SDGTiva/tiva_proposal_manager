@@ -7,6 +7,8 @@ privilégios de administrador.
 
 2) INSTALAÇÃO
 
+2.1) Execute o script "install.sh".
+
 3) EXECUÇÃO
 
 3.1) Qualquer arquivo colocado no diretório "/usr/share/tiva/proposals" é
@@ -44,7 +46,7 @@ identificada pelo Tiva Proposal Manager.
 proposta.
 
 3.2.1) Para aprovar uma proposta, crie um arquivo no diretório
-"/usr/share/tiva/proposals" com o nome "approve_" e o nome do arquivo da
+"/usr/share/tiva/proposals/actions" com o nome "approve_" e o nome do arquivo da
 proposta.
 
 3.2.2) Ao identificar o arquivo de aprovação de proposta, o arquivo é excluído.
