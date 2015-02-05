@@ -20,6 +20,7 @@ prepare_proposal()
 	mv /usr/share/tiva/proposals/$1 /usr/share/tiva/proposals/$id
 	sed -i "2i#* Title: `echo $1 | sed \"s/_/ /g\" | sed \"s/\(.\)/\U\1/\"`" /usr/share/tiva/proposals/$id
 	sed -i "3i#* Author: $author" /usr/share/tiva/proposals/$id
+	sed -i "4i#* Creation date: `date`" /usr/share/tiva/proposals/$id
 }
 
 identify_proposals
