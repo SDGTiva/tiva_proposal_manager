@@ -12,12 +12,14 @@ identify_proposals()
 
 prepare_proposal()
 {
+	author=`cat /etc/passwd | grep ^\`stat -c %U /usr/share/tiva/proposals/news/$1\` | cut -d : -f 5`
 	chown root.root /usr/share/tiva/proposals/news/$1
 	mv /usr/share/tiva/proposals/news/$1 /usr/share/tiva/proposals/$1
 	sed -i "s/^#\*/#X\*/g" /usr/share/tiva/proposals/$1
 	id=`cat /dev/urandom | tr -dc a-zA-Z0-9 | head -c 10`
 	mv /usr/share/tiva/proposals/$1 /usr/share/tiva/proposals/$id
 	sed -i "2i#* Title: `echo $1 | sed \"s/_/ /g\" | sed \"s/\(.\)/\U\1/\"`" /usr/share/tiva/proposals/$id
+	sed -i "3i#* Author: $author" /usr/share/tiva/proposals/$id
 }
 
 identify_proposals
