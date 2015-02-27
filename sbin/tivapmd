@@ -12,7 +12,7 @@ identify_proposals()
 
 prepare_proposal()
 {
-	author=`cat /etc/passwd | grep ^\`stat -c %U /usr/share/tiva/proposals/news/$1\` | cut -d : -f 5`
+	author=`stat -c %U /usr/share/tiva/proposals/news/$1`
 	chown root.root /usr/share/tiva/proposals/news/$1
 	mv /usr/share/tiva/proposals/news/$1 /usr/share/tiva/proposals/$1
 	sed -i "s/^#\*/#X\*/g" /usr/share/tiva/proposals/$1
