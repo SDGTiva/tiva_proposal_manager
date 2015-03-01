@@ -1,6 +1,6 @@
 #! /bin/sh
 
-identify_proposals()
+check_proposals()
 {
 	for filename in `ls /usr/share/tiva/proposals/news`
 	do
@@ -18,13 +18,13 @@ prepare_proposal()
 	sed -i "s/^#\*/#X\*/g" /usr/share/tiva/proposals/$1
 	id=`cat /dev/urandom | tr -dc a-zA-Z0-9 | head -c 10`
 	mv /usr/share/tiva/proposals/$1 /usr/share/tiva/proposals/$id
-	sed -i "2i#* Title: `echo $1 | sed \"s/_/ /g\" | sed \"s/\(.\)/\U\1/\"`" /usr/share/tiva/proposals/$id
-	sed -i "3i#* Author: $author" /usr/share/tiva/proposals/$id
-	sed -i "4i#* Creation date: `date`" /usr/share/tiva/proposals/$id
-	sed -i "5i#* Approved by: " /usr/share/tiva/proposals/$id
+	sed -i "1a#* Title: `echo $1 | sed \"s/_/ /g\" | sed \"s/\(.\)/\U\1/\"`" /usr/share/tiva/proposals/$id
+	sed -i "2a#* Author: $author" /usr/share/tiva/proposals/$id
+	sed -i "3a#* Creation date: `date`" /usr/share/tiva/proposals/$id
+	sed -i "4a#* Approved by: " /usr/share/tiva/proposals/$id
 }
 
-identify_actions()
+check_actions()
 {
 	for filename in `ls /usr/share/tiva/proposals/actions`
 	do
@@ -38,5 +38,29 @@ identify_actions()
 	done
 }
 
-identify_proposals
-identify_actions
+check_approvers()
+{
+	tiva_managers=`getent group tiva_manager | sed -e "s/.*:.*:.*:\(.*\)/\1/g" -e "s/,/ /g"`
+	for filename in `ls /usr/share/tiva/proposals`
+	do
+		[ -f /usr/share/tiva/proposals/$filename ] || continue
+		approved_by_all_managers=1
+		for user in $tiva_managers
+		do
+			approvers_line=`grep "^#\* Approved by: .*$" /usr/share/tiva/proposals/$filename`
+			[ `echo "$approvers_line" | sed -e "s/^#\* Approved by: .*$user;.*$/0/g" -e "s/^#\* Approved by: .*$/1/g"` -ne 0 ] && approved_by_all_managers=0
+		done
+		[ $approved_by_all_managers -eq 0 ] && continue
+		execute_proposal $filename
+	done
+}
+
+execute_proposal()
+{
+	/usr/share/tiva/proposals/$1 1> /usr/share/tiva/acts/log/$1.out 2> /usr/share/tiva/acts/log/$1.err
+	mv /usr/share/tiva/proposals/$1 /usr/share/tiva/acts/$1
+}
+
+check_proposals
+check_actions
+check_approvers

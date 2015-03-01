@@ -6,7 +6,7 @@ create_directories()
 	chmod a+w /usr/share/tiva/proposals/actions
 	mkdir -p /usr/share/tiva/proposals/news
 	chmod a+w /usr/share/tiva/proposals/news
-	mkdir -p /usr/share/tiva/acts
+	mkdir -p /usr/share/tiva/acts/log
 }
 
 create_bins()
