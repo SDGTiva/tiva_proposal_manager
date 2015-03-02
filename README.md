@@ -1,7 +1,7 @@
 Tiva Proposal Manager
 =====================
 
-0. OBJETIVO
+0. OBJECTIVE
 
 	0. To manage user proposals to execute scripts with root access.
 
