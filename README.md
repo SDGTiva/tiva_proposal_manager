@@ -9,7 +9,7 @@ Tiva Proposal Manager
 
 	0. Run the "install.sh" script.
 
-		> # ./install.sh
+		>  # ./install.sh
 
 0. RUNNING
 
