@@ -26,7 +26,7 @@ Tiva Proposal Manager
 
 		0. Approve it if you agree.
 
-			> $ touch > /usr/share/tiva/proposals/actions/approve_[proposal_id]
+			> $ touch /usr/share/tiva/proposals/actions/approve_[proposal_id]
 
 	0. When all users in "tiva_manager" group approved a proposal, it is
 	executed.
