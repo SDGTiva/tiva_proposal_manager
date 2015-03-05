@@ -32,3 +32,7 @@ Tiva Proposal Manager
 	executed.
 
 0. UNINSTALLING
+
+	0. Run the "uninstall.sh" script.
+
+		>  # ./uninstall.sh
