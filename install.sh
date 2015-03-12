@@ -19,11 +19,18 @@ create_groups()
 	addgroup tiva_manager
 }
 
+create_scripts()
+{
+	cp init.d/tivapmd /etc/init.d/tivapmd
+	update-rc.d tivapmd defaults
+}
+
 do_install()
 {
 	create_directories
 	create_bins
 	create_groups
+	create_scripts
 }
 
 do_install

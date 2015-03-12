@@ -61,6 +61,15 @@ execute_proposal()
 	mv /usr/share/tiva/proposals/$1 /usr/share/tiva/acts/$1
 }
 
-check_proposals
-check_actions
-check_approvers
+run()
+{
+	while true
+	do
+		check_proposals
+		check_actions
+		check_approvers
+		sleep 1
+	done
+}
+
+run &

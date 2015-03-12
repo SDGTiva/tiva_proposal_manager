@@ -1,5 +1,5 @@
-Tiva Proposal Manager
-=====================
+Tiva Proposal Manager v0.1.0
+============================
 
 0. OBJECTIVE
 
