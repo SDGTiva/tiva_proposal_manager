@@ -1,5 +1,18 @@
 #! /bin/sh
 
+#################################################################################
+#  SDGTive Script Desenvolvido por Computiva S.A - https://github.com/SDGTiva   #
+#################################################################################
+clear
+	echo "Olá $USER, este script vai instalar o SDGTive Manager no seu computador 
+        (Debian, Ubuntu ou Linux Mint) -- Pressione Enter para iniciar --"
+	read key
+	if [ $key == $key ]
+		then
+			echo "Vamos prosseguir com a instalação do SDGTiva..."	
+			sleep 2
+			echo "Digite a sua senha de usuário"
+			
 create_directories()
 {
 	mkdir -p /usr/share/tiva/proposals/actions
@@ -34,3 +47,6 @@ do_install()
 }
 
 do_install
+clear
+echo "A instalação foi concluída!"
+fi
