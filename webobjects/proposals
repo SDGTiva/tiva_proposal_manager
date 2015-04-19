@@ -1,0 +1,14 @@
+#! /bin/sh
+
+case $1 in
+	-l|--list)
+		echo "Content-Type: application/json"
+		echo ""
+		echo -n "["
+		for path in `ls /usr/share/tiva/proposals`
+		do
+			[ -f "/usr/share/tiva/proposals/$path" ] && echo -n "$path,"
+		done
+		echo "\b]"
+	;;
+esac
