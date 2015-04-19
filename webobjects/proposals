@@ -2,10 +2,14 @@
 
 usage() {
 	echo "Usage:"
-	echo "    $0 (-l|--list|-h|--help)"
+	echo "    $0 (-l|--list|-v|--view|-h|--help)"
 }
 
-[ $# -eq 0 ] && usage
+if [ $# -eq 0 ]
+then
+	usage
+	exit 1
+fi
 
 if [ $# -eq 1 ]
 then
@@ -19,12 +23,21 @@ then
 				[ -f "/usr/share/tiva/proposals/$path" ] && echo -n "\"$path\","
 			done
 			echo "\b]"
+			exit 0
+		;;
+		-v|--view)
+			echo "Content-Type: text/html"
+			echo ""
+			echo ""
+			exit 0
 		;;
 		-h|--help)
 			usage
+			exit 0
 		;;
 		*)
 			usage
+			exit 1
 		;;
 	esac
 fi
