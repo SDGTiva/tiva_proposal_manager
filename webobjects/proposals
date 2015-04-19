@@ -1,14 +1,30 @@
 #! /bin/sh
 
-case $1 in
-	-l|--list)
-		echo "Content-Type: application/json"
-		echo ""
-		echo -n "["
-		for path in `ls /usr/share/tiva/proposals`
-		do
-			[ -f "/usr/share/tiva/proposals/$path" ] && echo -n "$path,"
-		done
-		echo "\b]"
-	;;
-esac
+usage() {
+	echo "Usage:"
+	echo "    $0 (-l|--list|-h|--help)"
+}
+
+[ $# -eq 0 ] && usage
+
+if [ $# -eq 1 ]
+then
+	case $1 in
+		-l|--list)
+			echo "Content-Type: application/json"
+			echo ""
+			echo -n "["
+			for path in `ls /usr/share/tiva/proposals`
+			do
+				[ -f "/usr/share/tiva/proposals/$path" ] && echo -n "\"$path\","
+			done
+			echo "\b]"
+		;;
+		-h|--help)
+			usage
+		;;
+		*)
+			usage
+		;;
+	esac
+fi
