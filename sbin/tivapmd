@@ -1,56 +1,11 @@
 #! /bin/sh
 
-check_proposals()
+check_signatures()
 {
-	for filename in `ls /usr/share/tiva/proposals/news`
-	do
-		[ -f /usr/share/tiva/proposals/news/$filename ] || continue
-		[ `stat -c %u /usr/share/tiva/proposals/news/$filename` -ne 0 ] || continue
-		prepare_proposal $filename
-	done
-}
-
-prepare_proposal()
-{
-	author=`stat -c %U /usr/share/tiva/proposals/news/$1`
-	chown root.root /usr/share/tiva/proposals/news/$1
-	mv /usr/share/tiva/proposals/news/$1 /usr/share/tiva/proposals/$1
-	sed -i "s/^#\*/#X\*/g" /usr/share/tiva/proposals/$1
-	id=`cat /dev/urandom | tr -dc a-zA-Z0-9 | head -c 10`
-	mv /usr/share/tiva/proposals/$1 /usr/share/tiva/proposals/$id
-	sed -i "1a#* Title: `echo $1 | sed \"s/_/ /g\" | sed \"s/\(.\)/\U\1/\"`" /usr/share/tiva/proposals/$id
-	sed -i "2a#* Author: $author" /usr/share/tiva/proposals/$id
-	sed -i "3a#* Creation date: `date`" /usr/share/tiva/proposals/$id
-	sed -i "4a#* Approved by: " /usr/share/tiva/proposals/$id
-}
-
-check_actions()
-{
-	for filename in `ls /usr/share/tiva/proposals/actions`
-	do
-		proposal=`echo $filename | sed -e "s/approve_\(.\+\)/\1/g"`
-		author=`stat -c %U /usr/share/tiva/proposals/actions/$filename`
-		if [ `groups $author | sed -e "s/.*:.*tiva_manager.*/0/g"` -eq 0 ]
-		then
-			sed -i "5s/\(.*\)/\1$author;/" /usr/share/tiva/proposals/$proposal
-			rm /usr/share/tiva/proposals/actions/$filename
-		fi
-	done
-}
-
-check_approvers()
-{
-	tiva_managers=`getent group tiva_manager | sed -e "s/.*:.*:.*:\(.*\)/\1/g" -e "s/,/ /g"`
 	for filename in `ls /usr/share/tiva/proposals`
 	do
 		[ -f /usr/share/tiva/proposals/$filename ] || continue
-		approved_by_all_managers=1
-		for user in $tiva_managers
-		do
-			approvers_line=`grep "^#\* Approved by: .*$" /usr/share/tiva/proposals/$filename`
-			[ `echo "$approvers_line" | sed -e "s/^#\* Approved by: .*$user;.*$/0/g" -e "s/^#\* Approved by: .*$/1/g"` -ne 0 ] && approved_by_all_managers=0
-		done
-		[ $approved_by_all_managers -eq 0 ] && continue
+		[ `cd /usr/share/tiva/proposals && /usr/local/bin/odverify -p $filename | wc -l` -eq 1 ] || continue
 		execute_proposal $filename
 	done
 }
@@ -65,9 +20,7 @@ run()
 {
 	while true
 	do
-		check_proposals
-		check_actions
-		check_approvers
+		check_signatures
 		sleep 1
 	done
 }
