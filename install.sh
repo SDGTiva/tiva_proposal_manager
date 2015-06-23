@@ -19,19 +19,11 @@ create_scripts()
 	update-rc.d tivapmd defaults
 }
 
-create_webobjects()
-{
-	mkdir -p /usr/share/tiva/webobjects
-	cp -R webobjects/proposals /usr/share/tiva/webobjects/proposals
-	cp -R webobjects/acts /usr/share/tiva/webobjects/acts
-}
-
 do_install()
 {
 	create_directories
 	create_bins
 	create_scripts
-	create_webobjects
 }
 
 do_install
